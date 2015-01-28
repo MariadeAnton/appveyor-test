@@ -46,6 +46,14 @@ deploy_script:
   - if not defined APPVEYOR_REPO_TAG_NAME set VERSION=%no_version%
   - cmd: bii publish --tag=%tag% --versiontag=%VERSION% #|| dir # Ignore output
 
+on_success:
+  - git config --global credential.helper store 
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git commit -m "Updated biicode parents"
+  - git push origin master
+
+
+
 environment:
   project_name:
     "myproject"
@@ -55,6 +63,8 @@ environment:
     "appveyor-test"
   secured_passwd:
     secure: ZMvgETfLAUo7kISnvrinBA==
+  access_token:
+  	secure: s7IoFbHLebmL2SBjEH7VOKfO8VYsZmvklqb3NcN11+G+jXui5Dx4T5eEO97o0lEj  
   tag:
     "STABLE"
   no_version:
