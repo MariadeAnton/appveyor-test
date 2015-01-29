@@ -64,7 +64,7 @@ environment:
   secured_passwd:
     secure: ZMvgETfLAUo7kISnvrinBA==
   access_token:
-  	secure: GdIDIRkmsM9blqS143lQErkxguMYgJBs74GzWw+lgzjvl/NoLs4ErcOZ2JBAEmkr
+    secure: GdIDIRkmsM9blqS143lQErkxguMYgJBs74GzWw+lgzjvl/NoLs4ErcOZ2JBAEmkr
   tag:
     "STABLE"
   no_version:
