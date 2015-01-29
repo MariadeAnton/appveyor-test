@@ -49,9 +49,10 @@ deploy_script:
 on_success:
   - git config --global credential.helper store 
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git config --global user.email "maria.deanton@biicode.com"
+  - git config --global user.name "mariadeanton"
   - git commit -m "Updated biicode parents"
   - git push origin master
-
 
 
 environment:
