@@ -23,6 +23,8 @@ install:
   - cmd: del cmake.zip
 
 before_build:
+  - cmd: dir=`mktemp -d` && cd $dir
+  - cmd: set TEMP = $(pwd)
   - cmd: bii init %project_name%
   - cmd: cd %project_name%
   - cmd: bii new %block_user%/%block_name%
@@ -42,11 +44,14 @@ test_script:
 deploy_script:
   - cmd: bii user %block_user% -p %secured_passwd%
   - if defined APPVEYOR_REPO_TAG_NAME set VERSION=%APPVEYOR_REPO_TAG_NAME%  
-  - echo "Building tagged release %VERSION%"
+  - if defined APPVEYOR_REPO_TAG_NAME echo "Building tagged release %VERSION%"
   - if not defined APPVEYOR_REPO_TAG_NAME set VERSION=%no_version%
   - cmd: bii publish --tag=%tag% --versiontag=%VERSION% #|| dir # Ignore output
 
 on_success:
+  - cmd: cd 
+  - cmd: move "biicode.conf" \%APPVEYOR_BUILD_FOLDER%\
+  - cmd : cd %APPVEYOR_BUILD_FOLDER%
   - git config --global credential.helper store 
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "maria.deanton@biicode.com"
