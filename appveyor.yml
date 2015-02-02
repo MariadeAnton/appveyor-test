@@ -23,7 +23,7 @@ install:
   - cmd: del cmake.zip
 
 before_build:
-  - cmd: dir=`mktemp -d` && cd $dir
+  - cmd: set dir=`mktemp -d` && cd $dir
   - cmd: set TEMP = $(pwd)
   - cmd: bii init %project_name%
   - cmd: cd %project_name%
