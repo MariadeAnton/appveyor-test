@@ -49,7 +49,7 @@ deploy_script:
   - cmd: bii publish --tag=%tag% --versiontag=%VERSION% #|| dir # Ignore output
 
 on_success:
-  - cmd: cd 
+  - cmd: cd %TEMP%
   - cmd: move "biicode.conf" \%APPVEYOR_BUILD_FOLDER%\
   - cmd : cd %APPVEYOR_BUILD_FOLDER%
   - git config --global credential.helper store 
