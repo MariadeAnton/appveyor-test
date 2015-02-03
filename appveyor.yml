@@ -23,7 +23,7 @@ install:
   - cmd: del cmake.zip
 
 before_build:
-  - cmd: cd $(mktemp -d)
+  - cmd: %temp%
   - cmd: set TEMP=$(pwd)
   - cmd: bii init %project_name%
   - cmd: cd %project_name%
@@ -31,7 +31,7 @@ before_build:
     # copy the files
   - cmd: for %%i in (../*) do if %%i NEQ "%project_name%" copy "..\%%i" blocks\%block_user%\%block_name%\
     # copy the directories -> there are none
-  # cmd: for /d %%i in (../*) do if %%i NEQ "%project_name%" move "..\%%i" blocks\%block_user%\%block_name%\
+  # cmd: for /d %%i in (../*) do if %%i NEQ "%project_name%" copy "..\%%i" blocks\%block_user%\%block_name%\
   - cmd: bii cpp:configure -G "Visual Studio 12"
 
 build_script:
