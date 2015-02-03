@@ -23,8 +23,7 @@ install:
   - cmd: del cmake.zip
 
 before_build:
-  - cmd: %temp%
-  - cmd: set TEMP=$(pwd)
+  - cmd: cd %temp%
   - cmd: bii init %project_name%
   - cmd: cd %project_name%
   - cmd: bii new %block_user%/%block_name%
@@ -49,7 +48,7 @@ deploy_script:
   - cmd: bii publish --tag=%tag% --versiontag=%VERSION% #|| dir # Ignore output
 
 on_success:
-  - cmd: cd %TEMP%
+  - cmd: cd %temp%/%project_name%/blocks/%block_user%/%block_name%
   - cmd: move "biicode.conf" \%APPVEYOR_BUILD_FOLDER%\
   - cmd : cd %APPVEYOR_BUILD_FOLDER%
   - git config --global credential.helper store 
