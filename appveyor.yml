@@ -52,12 +52,12 @@ on_success:
   - cmd: move "biicode.conf" %APPVEYOR_BUILD_FOLDER%\
   - cmd : cd %APPVEYOR_BUILD_FOLDER%
   - git config --global credential.helper store 
-  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https:/$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "maria.deanton@biicode.com"
   - git config --global user.name "mariadeanton"
   - git add .
   - git commit -m "Updated biicode parents"
-  - git push
+  - git push origin master
 
 environment:
   project_name:
