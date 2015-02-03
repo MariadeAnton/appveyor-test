@@ -57,8 +57,7 @@ on_success:
   - git config --global user.name "mariadeanton"
   - git add .
   - git commit -m "Updated biicode parents"
-  - git push origin master
-
+  - git push
 
 environment:
   project_name:
