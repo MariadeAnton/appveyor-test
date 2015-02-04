@@ -7,3 +7,4 @@ Just a trial repo where I experiment with git and biicode tags.
         + if not tag -> just publish without tag
         + if tag -> publish stable
 #2. Perfect Environment variables
+   - or maybe not
