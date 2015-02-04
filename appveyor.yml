@@ -54,8 +54,8 @@ on_success:
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git remote add neworigin %github_repo%
   - git checkout master
-  - git config --global user.email "%github_email%"
-  - git config --global user.name "%github_user%"
+  - git config --global user.email "maria.deanton@biicode.com"
+  - git config --global user.name %github_user%
   - git add biicode.conf
   - git commit -m "Updated biicode parents"
   - git push neworigin master
@@ -73,8 +73,6 @@ environment:
     secure: GdIDIRkmsM9blqS143lQErkxguMYgJBs74GzWw+lgzjvl/NoLs4ErcOZ2JBAEmkr
   tag:
     "STABLE"
-  github_mail:
-    "maria.deanton@biicode.com"
   github_user:
     "MariadeAnton"
   github_repo:
