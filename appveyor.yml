@@ -47,7 +47,6 @@ deploy_script:
   - if defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% --versiontag=%VERSION% 
   - if not defined APPVEYOR_REPO_TAG_NAME set VERSION=%no_version%
   - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% 
-  - cmd: bii publish --tag=%tag% --versiontag=%VERSION% #|| dir # Ignore output
 
 on_success:
   - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
