@@ -54,7 +54,7 @@ on_success:
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git remote add neworigin %github_repo%
   - git checkout master
-  - git config --global user.email "maria.deanton@biicode.com"
+  - git config --global user.email %github_email%
   - git config --global user.name %github_user%
   - git add biicode.conf
   - git commit -m "Updated biicode parents"
@@ -75,5 +75,7 @@ environment:
     "STABLE"
   github_user:
     "MariadeAnton"
+  github_email:
+    "maria.deanton@biicode.com"
   github_repo:
     "https://github.com/MariadeAnton/appveyor-test.git"
