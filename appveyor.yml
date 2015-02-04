@@ -53,12 +53,12 @@ on_success:
   - cmd : cd %APPVEYOR_BUILD_FOLDER%
   - git config --global credential.helper store 
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-  - git remote add origin https://github.com/MariadeAnton/appveyor-test.git
+  - git remote add neworigin https://github.com/MariadeAnton/appveyor-test.git
   - git config --global user.email "maria.deanton@biicode.com"
   - git config --global user.name "mariadeanton"
   - git add .
   - git commit -m "Updated biicode parents"
-  - git push origin master
+  - git push neworigin master
 
 environment:
   project_name:
