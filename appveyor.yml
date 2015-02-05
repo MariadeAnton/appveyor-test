@@ -42,23 +42,24 @@ deploy_script:
   - cmd: bii user %block_user% -p %secured_passwd%
   - if defined APPVEYOR_REPO_TAG_NAME set VERSION=%APPVEYOR_REPO_TAG_NAME%  
   - if defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% --versiontag=%VERSION% 
-  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% 
+  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%dev_tag% 
 
 on_success:
-#copy biicode.conf updated file
-  - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
-  - cmd: move "biicode.conf" %APPVEYOR_BUILD_FOLDER%\
-  - cmd: cd %APPVEYOR_BUILD_FOLDER%
-#config and push updated parents to GitHub
-  - git config --global credential.helper store 
-  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-  - git remote add neworigin %github_repo%
-  - git checkout master
-  - git config --global user.email %github_email%
-  - git config --global user.name %github_user%
-  - git add biicode.conf
-  - git commit -m "Updated biicode parents"
-  - git push neworigin master
+  - ps: >-
+      if ($APPVEYOR_REPO_TAG_NAME){
+        cd /%project_name%/blocks/%block_user%/%block_name%
+        move "biicode.conf" %APPVEYOR_BUILD_FOLDER%\
+        cd %APPVEYOR_BUILD_FOLDER%
+        git config --global credential.helper store 
+        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+        git remote add neworigin %github_repo%
+        git checkout master
+        git config --global user.email %github_email%
+        git config --global user.name %github_user%
+        git add biicode.conf
+        git commit -m "Updated biicode parents"
+        git push neworigin master
+      }
 
 environment:
   project_name:
@@ -73,6 +74,8 @@ environment:
     secure: GdIDIRkmsM9blqS143lQErkxguMYgJBs74GzWw+lgzjvl/NoLs4ErcOZ2JBAEmkr
   tag:
     "STABLE"
+  dev_tag:
+    "DEV"  
   github_user:
     "MariadeAnton"
   github_email:
