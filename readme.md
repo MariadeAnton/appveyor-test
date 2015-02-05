@@ -13,3 +13,5 @@ Just a trial repo where I experiment with git and biicode tags.
     - if tag -> update biicode parents
 #4. that's not the logic. 
     - Trying to launch commit with power shell scripting
+    - move-item -literalpath added
+    - cd +"\"
