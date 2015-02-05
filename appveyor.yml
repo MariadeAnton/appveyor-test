@@ -10,6 +10,7 @@ skip_commits:
 
 install:
   - cinst biicode
+  - cmd: bii --version
 
 before_build:
   - cmd: cd \
