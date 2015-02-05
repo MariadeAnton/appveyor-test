@@ -47,15 +47,15 @@ deploy_script:
 
 on_success:
   - ps: >-
-        cd /%project_name%/blocks/%block_user%/%block_name%
-        move-item -literalpath 'biicode.conf' -destination '%APPVEYOR_BUILD_FOLDER%\'
-        cd %APPVEYOR_BUILD_FOLDER%
+        cd /"$env:project_name"/blocks/"$env:block_user"/"$env:block_name"
+        move-item -literalpath 'biicode.conf' -destination'%APPVEYOR_BUILD_FOLDER%\'
+        cd "$env:APPVEYOR_BUILD_FOLDER"
         git config --global credential.helper store 
         Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-        git remote add neworigin %github_repo%
+        git remote add neworigin "$env:github_repo"
         git checkout master
-        git config --global user.email %github_email%
-        git config --global user.name %github_user%
+        git config --global user.email "$env:github_email"
+        git config --global user.name "$env:github_user"
         git add biicode.conf
         git commit -m "Updated biicode parents"
         git push neworigin master
