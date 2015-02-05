@@ -47,7 +47,7 @@ deploy_script:
 
 on_success:
   - ps: >-
-        cd $env:project_name+"/blocks/"+$env:block_user+"/"+$env:block_name
+        cd $env:project_name"/blocks/"$env:block_user"/"$env:block_name
         get-childitem -literalpath "biicode.conf" 
         move-item -destination "$env:APPVEYOR_BUILD_FOLDER"
         cd "$env:APPVEYOR_BUILD_FOLDER"
