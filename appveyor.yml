@@ -4,6 +4,7 @@ branches:
 #white list
   only: 
     - master
+    - ps/trial
 
 skip_commits:
   message: Updated biicode parents
