@@ -47,10 +47,10 @@ deploy_script:
 
 on_success:
   - ps: >-
-        cd $env:project_name"/blocks/"$env:block_user"/"$env:block_name
+        Set-Location $env:project_name"/blocks/"$env:block_user"/"$env:block_name
         get-childitem -literalpath "biicode.conf" 
         move-item -destination "$env:APPVEYOR_BUILD_FOLDER"
-        cd "$env:APPVEYOR_BUILD_FOLDER"
+        Set-Location "$env:APPVEYOR_BUILD_FOLDER"
         git config --global credential.helper store 
         Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
         git remote add neworigin "$env:github_repo"
