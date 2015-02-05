@@ -9,18 +9,7 @@ skip_commits:
   message: Updated biicode parents
 
 install:
-  - ps: wget https://s3.amazonaws.com/biibinaries/thirdparty/cmake-3.0.2-win32-x86.zip -OutFile cmake.zip
-  - cmd: echo "Unzipping cmake..."
-  - cmd: 7z x cmake.zip -o"C:\Program Files (x86)\" -y > nul
-  - cmd: set PATH=%PATH:CMake 2.8\bin=%;C:\Program Files (x86)\cmake-3.0.2-win32-x86\bin
-  - cmd: cmake --version
-  - cmd: echo "Downloading biicode..."
-  - ps: wget http://www.biicode.com/downloads/latest/win -OutFile bii-win.exe
-  - cmd: bii-win.exe /VERYSILENT
-  - cmd: set PATH=%PATH%;C:\Program Files (x86)\BiiCode\bii
-  - cmd: bii -v
-  - cmd: del bii-win.exe
-  - cmd: del cmake.zip
+  - cinst <biicode>
 
 before_build:
   - cmd: cd \
@@ -42,14 +31,14 @@ deploy_script:
   - cmd: bii user %block_user% -p %secured_passwd%
   - if defined APPVEYOR_REPO_TAG_NAME set VERSION=%APPVEYOR_REPO_TAG_NAME%  
   - if defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% --versiontag=%VERSION% 
-  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% 
+  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%dev_tag% 
 
 on_success:
-#copy biicode.conf updated file
+  #copy biicode.conf updated file
   - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
   - cmd: move "biicode.conf" %APPVEYOR_BUILD_FOLDER%\
   - cmd: cd %APPVEYOR_BUILD_FOLDER%
-#config and push updated parents to GitHub
+  #config and push updated parents to GitHub
   - git config --global credential.helper store 
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git remote add neworigin %github_repo%
@@ -73,6 +62,8 @@ environment:
     secure: GdIDIRkmsM9blqS143lQErkxguMYgJBs74GzWw+lgzjvl/NoLs4ErcOZ2JBAEmkr
   tag:
     "STABLE"
+  dev_tag:
+    "DEV"
   github_user:
     "MariadeAnton"
   github_email:
