@@ -9,7 +9,7 @@ skip_commits:
   message: Updated biicode parents
 
 install:
-  - cinst <biicode>
+  - cinst biicode
 
 before_build:
   - cmd: cd \
