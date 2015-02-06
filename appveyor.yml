@@ -47,19 +47,23 @@ deploy_script:
 
 on_success:
   - ps: >-
-        Set-Location $env:project_name"\blocks\"$env:block_user"\"$env:block_name
-        get-childitem -literalpath "biicode.conf" 
-        move-item -destination "$env:APPVEYOR_BUILD_FOLDER"
-        Set-Location "$env:APPVEYOR_BUILD_FOLDER"
-        git config --global credential.helper store 
-        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-        git remote add neworigin "$env:github_repo"
-        git checkout master
-        git config --global user.email "$env:github_email"
-        git config --global user.name "$env:github_user"
-        git add biicode.conf
-        git commit -m "Updated biicode parents"
-        git push neworigin master
+        cd .\$env:project_name"\blocks\"$env:block_user"\"$env:block_name
+        $new_biiconf = get-content "biicode.conf" 
+        $orig_biiconf = get-content "$env:APPVEYOR_BUILD_FOLDER\biicode.conf"
+        if (diff $new_biiconf $orig_biiconf) 
+        {
+           compare-object ($new_biiconf) ($orig_biiconf)
+           Set-Location "$env:APPVEYOR_BUILD_FOLDER"
+           git config --global credential.helper store 
+           Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+           git remote add neworigin "$env:github_repo"
+           git checkout master
+           git config --global user.email "$env:github_email"
+           git config --global user.name "$env:github_user"
+           git add biicode.conf
+           git commit -m "Updated biicode parents"
+           git push neworigin master
+      }
 environment:
   project_name:
     "myproject"
