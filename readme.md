@@ -15,4 +15,4 @@ Just a trial repo where I experiment with git and biicode tags.
     - Trying to launch commit with power shell scripting
     - move-item -literalpath added
     - just enviroment variables trial
-    - another env trial 3 :()
+    - another env trial 4 :()
