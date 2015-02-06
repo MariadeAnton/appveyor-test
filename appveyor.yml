@@ -55,13 +55,13 @@ on_success:
            'different, updating biicode parents'
            move-item biicode.conf "$env:APPVEYOR_BUILD_FOLDER\" -force
            cd "$env:APPVEYOR_BUILD_FOLDER"
+           git config --global core.autocrlf true
            git config --global credential.helper store 
            Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
            git remote add neworigin "$env:github_repo"
-           git checkout master
            git config --global user.email "$env:github_email"
            git config --global user.name "$env:github_user"
-           git add biicode.conf
+           git add --all
            git commit -m "Updated biicode parents"
            git push neworigin master}
         else {'equal, no parents update needed'}
