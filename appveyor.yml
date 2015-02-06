@@ -27,10 +27,8 @@ before_build:
   - cmd: bii init %project_name%
   - cmd: cd %project_name%
   - cmd: bii new %block_user%/%block_name%
-    # copy the files
+    # copy files and folders
   - cmd: xcopy "%APPVEYOR_BUILD_FOLDER%" blocks\%block_user%\%block_name%\ /e
-    # copy the directories -> there are none
-  # cmd: for /d %%i in (../*) do if %%i NEQ "%project_name%" copy "..\%%i" blocks\%block_user%\%block_name%\
   - cmd: bii cpp:configure -G "Visual Studio 12"
 
 build_script:
@@ -43,21 +41,24 @@ test_script:
 deploy_script:
   - cmd: bii user %block_user% -p %secured_passwd%
   - if defined APPVEYOR_REPO_TAG_NAME set VERSION=%APPVEYOR_REPO_TAG_NAME%  
-  - if defined APPVEYOR_REPO_TAG_NAME echo "Building tagged release %VERSION%"
-  - if not defined APPVEYOR_REPO_TAG_NAME set VERSION=%no_version%
-  - cmd: bii publish --tag=%tag% --versiontag=%VERSION% #|| dir # Ignore output
+  - if defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% --versiontag=%VERSION% 
+  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% 
 
 on_success:
+#copy biicode.conf updated file
   - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
   - cmd: move "biicode.conf" %APPVEYOR_BUILD_FOLDER%\
-  - cmd : cd %APPVEYOR_BUILD_FOLDER%
+  - cmd: cd %APPVEYOR_BUILD_FOLDER%
+#config and push updated parents to GitHub
   - git config --global credential.helper store 
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-  - git config --global user.email "maria.deanton@biicode.com"
-  - git config --global user.name "mariadeanton"
-  - git add .
+  - git remote add neworigin %github_repo%
+  - git checkout master
+  - git config --global user.email %github_email%
+  - git config --global user.name %github_user%
+  - git add biicode.conf
   - git commit -m "Updated biicode parents"
-  - git push origin master
+  - git push neworigin master
 
 environment:
   project_name:
@@ -72,5 +73,9 @@ environment:
     secure: GdIDIRkmsM9blqS143lQErkxguMYgJBs74GzWw+lgzjvl/NoLs4ErcOZ2JBAEmkr
   tag:
     "STABLE"
-  no_version:
-    ""
+  github_user:
+    "MariadeAnton"
+  github_email:
+    "maria.deanton@biicode.com"
+  github_repo:
+    "https://github.com/MariadeAnton/appveyor-test.git"
