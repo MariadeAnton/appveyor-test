@@ -47,12 +47,10 @@ deploy_script:
 
 on_success:
   - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
-  - ps: >-    
-        Write-Host "Hello, $env:APPVEYOR_BUILD_FOLDER"
+  - ps: |    
         $new_biiconf = get-content biicode.conf
-        Write-Host "Hello, $APPVEYOR_BUILD_FOLDER"
         $orig_biiconf = get-content "$env:APPVEYOR_BUILD_FOLDER\biicode.conf"
-  - ps: >-     
+  - ps: |     
         if (diff $new_biiconf $orig_biiconf){
            move-item biicode.conf "$env:APPVEYOR_BUILD_FOLDER\" -force
            git config --global credential.helper store 
