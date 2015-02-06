@@ -14,4 +14,5 @@ Just a trial repo where I experiment with git and biicode tags.
 #4. PowerShell compares and releases push if updated parents
     - Trying to launch commit with power shell scripting
     - move-item -literalpath added
+    - just enviroment variables trial
     

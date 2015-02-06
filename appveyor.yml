@@ -46,8 +46,8 @@ deploy_script:
   - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% 
 
 on_success:
-  - ps: >-
-        cd .\$env:project_name\blocks\$env:block_user\$env:block_name
+  - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
+  - ps: >-    
         $new_biiconf = get-content "biicode.conf" 
         $orig_biiconf = get-content "$env:APPVEYOR_BUILD_FOLDER\biicode.conf"
   - ps: >-     
