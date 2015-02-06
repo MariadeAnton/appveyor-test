@@ -50,8 +50,8 @@ on_success:
         cd .\$env:project_name"\blocks\"$env:block_user"\"$env:block_name
         $new_biiconf = get-content "biicode.conf" 
         $orig_biiconf = get-content "$env:APPVEYOR_BUILD_FOLDER\biicode.conf"
-        if (diff $new_biiconf $orig_biiconf) 
-        {
+  - ps: >-     
+        if (diff $new_biiconf $orig_biiconf){
            compare-object ($new_biiconf) ($orig_biiconf)
            Set-Location "$env:APPVEYOR_BUILD_FOLDER"
            git config --global credential.helper store 
@@ -62,8 +62,8 @@ on_success:
            git config --global user.name "$env:github_user"
            git add biicode.conf
            git commit -m "Updated biicode parents"
-           git push neworigin master
-      }
+           git push neworigin master}
+        else {'equal, no parents update needed'}
 environment:
   project_name:
     "myproject"
