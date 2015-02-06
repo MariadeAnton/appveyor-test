@@ -52,8 +52,9 @@ on_success:
         $orig_biiconf = get-content "$env:APPVEYOR_BUILD_FOLDER\biicode.conf"
   - ps: |     
         if (diff $new_biiconf $orig_biiconf){
+           'different, updating biicode parents'
            move-item biicode.conf "$env:APPVEYOR_BUILD_FOLDER\" -force
-           cd .\$env:APPVEYOR_BUILD_FOLDER
+           cd "$env:APPVEYOR_BUILD_FOLDER"
            git config --global credential.helper store 
            Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
            git remote add neworigin "$env:github_repo"
