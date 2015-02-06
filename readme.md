@@ -19,4 +19,5 @@ Just a trial repo where I experiment with git and biicode tags.
     - if checking
     - last check - lets tag!
     - new test and hopefully logic's latest
-    - not yet - re-trial 8
+    - not yet - re-trial 9
+    
