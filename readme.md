@@ -18,3 +18,4 @@ Just a trial repo where I experiment with git and biicode tags.
     - env trial working
     - if checking
     - last check - lets tag!
+    - new test and hopefully logic's latest
