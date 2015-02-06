@@ -17,3 +17,4 @@ Just a trial repo where I experiment with git and biicode tags.
     - just enviroment variables trial
     - env trial working
     - if checking
+    - last check - lets tag!
