@@ -3,7 +3,7 @@ version: 1.0.{build}
 branches:
 #white list
   only: 
-    - %branch%
+    - ps/trial
 
 skip_commits:
   message: Updated biicode parents
