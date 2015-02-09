@@ -23,3 +23,4 @@ Just a trial repo where I experiment with git and biicode tags.
 
 #6. re check and final touches
     - publishing stable over stable
+    - chocolatey install

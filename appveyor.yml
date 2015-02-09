@@ -10,18 +10,14 @@ skip_commits:
   message: Updated biicode parents
 
 install:
-  - ps: wget https://s3.amazonaws.com/biibinaries/thirdparty/cmake-3.0.2-win32-x86.zip -OutFile cmake.zip
-  - cmd: echo "Unzipping cmake..."
-  - cmd: 7z x cmake.zip -o"C:\Program Files (x86)\" -y > nul
-  - cmd: set PATH=%PATH:CMake 2.8\bin=%;C:\Program Files (x86)\cmake-3.0.2-win32-x86\bin
+  - cinst biicode mingw
+  - cmd: set PATH=%PATH:CMake 2.8\bin=%;C:\ProgramData\chocolatey\lib\cmake.3.0.2\content\cmake-3.0.2-win32-x86\bin
+  - cmd: set PATH=%PATH:Git\bin=%;C:\MinGW\bin
+  - cmd: set PATH=%PATH%;C:\Program Files (x86)\BiiCode\bii;  
+  - cmd: set PATH=%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\; #ml for MinGW build
   - cmd: cmake --version
-  - cmd: echo "Downloading biicode..."
-  - ps: wget http://www.biicode.com/downloads/latest/win -OutFile bii-win.exe
-  - cmd: bii-win.exe /VERYSILENT
-  - cmd: set PATH=%PATH%;C:\Program Files (x86)\BiiCode\bii
-  - cmd: bii -v
-  - cmd: del bii-win.exe
-  - cmd: del cmake.zip
+  - cmd: g++ --version
+  - cmd: bii --version
 
 before_build:
   - cmd: cd \
