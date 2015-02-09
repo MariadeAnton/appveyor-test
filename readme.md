@@ -20,3 +20,5 @@ Just a trial repo where I experiment with git and biicode tags.
 #5. just a small update and minor changes
     - else check again
     - re-check
+
+#6. re check and final touches
