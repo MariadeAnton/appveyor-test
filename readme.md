@@ -18,4 +18,5 @@ Just a trial repo where I experiment with git and biicode tags.
     - works but finishes as unsuccesful build
 
 #5. just a small update and minor changes
-    - else check
+    - else check again
+    - re-check

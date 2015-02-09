@@ -63,9 +63,10 @@ on_success:
            git config --global user.name "$env:github_user"
            git add biicode.conf
            git commit -m "Updated biicode parents"
-           git push neworigin "$env:APPVEYOR_REPO_BRANCH"}
-           Write-Host "Updated biicode parents"
-        else {'equal, no parents update needed'}
+           git push neworigin "$env:APPVEYOR_REPO_BRANCH"
+           }Write-Host "Updated biicode parents" else {
+            'equal, no parents update needed'
+          }
 
 environment:
   project_name:
