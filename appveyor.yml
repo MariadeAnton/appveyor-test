@@ -4,6 +4,7 @@ branches:
 #white list
   only: 
     - ps/trial
+    - master
 
 skip_commits:
   message: Updated biicode parents
@@ -54,7 +55,7 @@ on_success:
            'different, updating biicode parents'
            move-item biicode.conf "$env:APPVEYOR_BUILD_FOLDER\" -force
            cd "$env:APPVEYOR_BUILD_FOLDER"
-           git checkout "$env:branch"
+           git checkout "$env:APPVEYOR_REPO_BRANCH"
            git config --global core.autocrlf true
            git config --global credential.helper store 
            Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
@@ -63,9 +64,10 @@ on_success:
            git config --global user.name "$env:github_user"
            git add biicode.conf
            git commit -m "Updated biicode parents"
-           git push neworigin "$env:branch"}
-           'updated biicode parents'
+           git push neworigin "$env:APPVEYOR_REPO_BRANCH"}
+           Write-Host "updated biicode parents"
         else {'equal, no parents update needed'}
+  - cmd: echo "Build Success"
 environment:
   project_name:
     "myproject"
@@ -87,5 +89,4 @@ environment:
     "maria.deanton@biicode.com"
   github_repo:
     "https://github.com/MariadeAnton/appveyor-test.git"
-  branch:
-   "ps/trial"
+
