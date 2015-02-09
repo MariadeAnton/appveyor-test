@@ -22,3 +22,4 @@ Just a trial repo where I experiment with git and biicode tags.
     - re-check
 
 #6. re check and final touches
+    - publishing stable over stable
