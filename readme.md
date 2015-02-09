@@ -12,12 +12,6 @@ Just a trial repo where I experiment with git and biicode tags.
     - if no tag -> publish as dev 
     - if tag -> update biicode parents
 #4. PowerShell compares and releases push if updated parents
-    - Trying to launch commit with power shell scripting
-    - move-item -literalpath added
-    - just enviroment variables trial
-    - env trial working
-    - if checking
-    - last check - lets tag!
-    - new test and hopefully logic's latest
-    - not yet - re-trial 12
-    - 
+    - works but finishes as unsuccesful build
+#5. just a small update and minor changes
+    
