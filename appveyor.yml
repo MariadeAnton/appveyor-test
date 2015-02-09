@@ -65,9 +65,9 @@ on_success:
            git add biicode.conf
            git commit -m "Updated biicode parents"
            git push neworigin "$env:APPVEYOR_REPO_BRANCH"}
-           Write-Host "updated biicode parents"
+           Write-Host "Updated biicode parents"
         else {'equal, no parents update needed'}
-  - cmd: echo "Build Success"
+
 environment:
   project_name:
     "myproject"

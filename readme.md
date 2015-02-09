@@ -14,4 +14,4 @@ Just a trial repo where I experiment with git and biicode tags.
 #4. PowerShell compares and releases push if updated parents
     - works but finishes as unsuccesful build
 #5. just a small update and minor changes
-    
+    - else check
