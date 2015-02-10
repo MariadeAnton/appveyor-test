@@ -40,7 +40,7 @@ deploy_script:
   - cmd: bii user %block_user% -p %secured_passwd%
   - if defined APPVEYOR_REPO_TAG_NAME set VERSION=%APPVEYOR_REPO_TAG_NAME%  
   - if defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% --versiontag=%VERSION% 
-  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%tag% 
+  - if not defined APPVEYOR_REPO_TAG_NAME bii publish --tag=%dev_tag% 
 
 on_success:
   - cmd: cd /%project_name%/blocks/%block_user%/%block_name%
@@ -50,12 +50,13 @@ on_success:
         if (diff $new_biiconf $orig_biiconf){
            'different, updating biicode parents'
            git checkout "$env:APPVEYOR_REPO_BRANCH"
+           git config --global core.autocrlf true
            git config --global credential.helper store 
            Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
            git remote add neworigin "$env:github_repo"
            git config --global user.email "$env:github_email"
            git config --global user.name "$env:github_user"
-           git add biicode.conf
+           git add .
            git commit -m "Updated biicode parents [skip ci]"
            git push neworigin "$env:APPVEYOR_REPO_BRANCH"
            }Write-Host "Updated biicode parents" else {
