@@ -26,7 +26,7 @@ before_build:
   - cmd: cd %project_name%
   - cmd: bii new %block_user%/%block_name%
     # copy files and folders
-  - cmd: xcopy "%APPVEYOR_BUILD_FOLDER%" blocks\%block_user%\%block_name%\ /e
+  - cmd: xcopy "%APPVEYOR_BUILD_FOLDER%" blocks\%block_user%\%block_name%\ /e /h
   - cmd: bii cpp:configure -G "Visual Studio 12"
 
 build_script:
@@ -49,8 +49,6 @@ on_success:
         $orig_biiconf = get-content "$env:APPVEYOR_BUILD_FOLDER\biicode.conf"     
         if (diff $new_biiconf $orig_biiconf){
            'different, updating biicode parents'
-           move-item biicode.conf "$env:APPVEYOR_BUILD_FOLDER\" -force
-           cd "$env:APPVEYOR_BUILD_FOLDER"
            git checkout "$env:APPVEYOR_REPO_BRANCH"
            git config --global core.autocrlf true
            git config --global credential.helper store 
